@@ -1,0 +1,30 @@
+[project]
+name = "german-traffic-sign-recognition"
+version = "0.1.0"
+description = "German Traffic Sign Recognition"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "python-multipart>=0.0.21",
+]
+
+[dependency-groups]
+backend = [
+    "fastapi>=0.128.0",
+    "numpy>=2.4.1",
+    "onnxruntime>=1.23.2",
+    "pillow>=12.1.0",
+    "uvicorn>=0.40.0",
+]
+develop = [
+    "datasets>=4.5.0",
+    "onnx>=1.20.1",
+    "onnxscript>=0.5.7",
+    "torch>=2.9.1",
+    "torchvision>=0.24.1",
+]
+frontend = [
+    "requests>=2.32.5",
+    "streamlit>=1.53.0",
+    "matplotlib>=3.10.8",
+]

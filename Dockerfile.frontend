@@ -1,0 +1,19 @@
+FROM python:3.11.13-slim
+
+# Copy uv binary from official uv image (multi-stage build pattern)
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
+
+WORKDIR /app
+ENV PATH="/app/.venv/bin:$PATH"
+
+COPY pyproject.toml .python-version uv.lock ./
+RUN uv sync --locked --group frontend
+
+# Copy application code
+COPY streamlit_app.py ./
+
+# Expose port
+EXPOSE 8501
+
+# Run Streamlit
+CMD ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

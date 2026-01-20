@@ -1,0 +1,19 @@
+FROM python:3.11.13-slim
+
+# Copy uv binary from official uv image (multi-stage build pattern)
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
+
+WORKDIR /app
+ENV PATH="/app/.venv/bin:$PATH"
+
+COPY pyproject.toml .python-version uv.lock ./
+RUN uv sync --locked --group backend
+
+COPY app.py model_gtsr.onnx ./
+
+# Expose port
+EXPOSE 8080
+
+# Run the application
+CMD ["python", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
+
