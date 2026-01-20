@@ -1,0 +1,7 @@
+[project]
+name = "cgerman-traffic-sign-recognition"
+version = "0.1.0"
+description = "German Traffic Sign Recognition"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
