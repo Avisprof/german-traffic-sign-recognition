@@ -22,7 +22,7 @@ german-traffic-sign-recognition/
 ├── pyproject.toml          # Project dependencies (uv)
 ├── README.md               # This file
 ├── notebook.ipynb          # Jupyter notebook for experiments
-
+```
 
 ## Features
 
