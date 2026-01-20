@@ -23,6 +23,7 @@ german-traffic-sign-recognition/
 ├── README.md               # This file
 ├── notebook.ipynb          # Jupyter notebook for experiments
 
+
 ## Features
 
 - **Training**: Train ResNet18/34/50, MobileNetV3, or EfficientNet models on GTSRB dataset
