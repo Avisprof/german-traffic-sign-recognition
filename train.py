@@ -11,7 +11,7 @@ SEED = 43
 IMAGE_SIZE = 224
 NUM_EPOCHS = 5
 
-MODEL_NAME = 'efficientnet_b0'
+MODEL_NAME = 'mobilenet_v3_small'
 if len(sys.argv) > 1:
     MODEL_NAME = str(sys.argv[1])
 

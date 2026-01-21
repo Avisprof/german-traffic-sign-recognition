@@ -21,10 +21,12 @@ The project uses the GTSRB (German Traffic Sign Recognition Benchmark) dataset f
 
 ### Model choice
 
-During experimentation, all supported architectures (ResNet18/34/50, MobileNetV3-Small/Large, and EfficientNet-B0) showed very similar classification quality on the GTSRB dataset, with only minor differences in final accuracy. Because of this, the final model was selected primarily based on efficiency and deployment constraints rather than raw accuracy.
+During experimentation, all supported architectures (`ResNet18/34/50`, `MobileNetV3-Small/Large`, and `EfficientNet-B0`) showed very similar classification quality on the GTSRB dataset, with only minor differences in final accuracy. 
+
+Because of this, the final model was selected primarily based on efficiency and deployment constraints rather than raw accuracy and it's `MobileNetV3_Small`
 
 
-For real‑time traffic sign classification on mobile or low‑power devices, MobileNetV3 (Small or Large, depending on your accuracy needs) is generally the best balance of “light + fast + accurate”, with EfficientNet‑B0 as a good alternative if you can afford slightly more compute.
+For real‑time traffic sign classification on mobile or low‑power devices, `MobileNetV3` (Small or Large, depending on your accuracy needs) is generally the best balance of `light + fast + accurate`, with `EfficientNet‑B0` as a good alternative if you can afford slightly more compute.
 
 ## Project Structure
 
@@ -46,7 +48,7 @@ german-traffic-sign-recognition/
 
 ## Features
 
-- **Training**: Train ResNet18/34/50, MobileNetV3, or EfficientNet models on GTSRB dataset
+- **Training**: Train `ResNet18/34/50`, `MobileNetV3 (Large/Small)`, or `EfficientNet` models on GTSRB dataset
 - **ONNX Export**: Automatically export trained models to ONNX format for production
 - **REST API**: FastAPI backend for serving predictions
 - **Web Interface**: Streamlit frontend with interactive image upload and visualization
@@ -79,8 +81,8 @@ docker compose -f dockerhub-compose.yml up -d
 ```
 
 Access the application:
-* Backend API: `http://localhost:8080`
-* Frontend: `http://localhost:8501`
+- **Backend** (FastAPI) on `http://localhost:8080`
+- **Frontend** (Streamlit) on `http://localhost:8501`
 
 
 ## Installation from scratch
@@ -112,28 +114,33 @@ Train a model on the GTSRB dataset. The script will automatically:
 - Save the best PyTorch checkpoint
 - Export the model to ONNX format
 
-Training  EfficientNet (by default)
+* Training `MobileNetV3_Small` (by default)
 ```bash
 uv run python train.py
 ```
 ![01_script_train.png](images/01_script_train.png)
 
-Training MobileNetV3
+* Training `MobileNetV3_Large`
 ```bash
 uv run python train.py mobilenet_v3_large
 ```
 
-Training ResNet18 
+* Training `EfficientNet`
+```bash
+uv run python train.py efficientnet_b0
+```
+
+* Training `ResNet18`
 ```bash
 uv run python train.py resnet18
 ```
 
-Training ResNet34
+* Training `ResNet34`
 ```bash
 uv run python train.py resnet34
 ```
 
-Training ResNet50
+* Training `ResNet50`
 ```bash
 uv run python train.py resnet50
 ```
