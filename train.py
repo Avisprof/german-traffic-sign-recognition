@@ -1,3 +1,5 @@
+import sys
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -7,6 +9,15 @@ from torch.utils.data import DataLoader
 
 SEED = 43
 IMAGE_SIZE = 224
+NUM_EPOCHS = 5
+
+MODEL_NAME = 'efficientnet_b0'
+if len(sys.argv) > 1:
+    MODEL_NAME = str(sys.argv[1])
+
+    if MODEL_NAME not in ['resnet18', 'resnet34', 'resnet50', 'mobilenet_v3_large', 'efficientnet_b0']:
+        print(f"Unsupported model name: {MODEL_NAME}")
+        sys.exit(1) 
 
 train_transform = transforms.Compose([
     transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
@@ -183,20 +194,17 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_tds, batch_size=64, shuffle=True, num_workers=1)
     test_loader = DataLoader(test_tds, batch_size=64, shuffle=False, num_workers=1)
     
-    model = build_model('resnet18', num_classes).to(device)
+    model = build_model(MODEL_NAME, num_classes).to(device)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.AdamW(model.parameters(), lr=3e-4, weight_decay=1e-4)
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10)
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10)   
 
-    # Train for 5 epochs
-    num_epochs = 5
-
-    model = fit(model, train_loader, test_loader, criterion, optimizer, device, epochs=num_epochs)
+    model = fit(model, train_loader, test_loader, criterion, optimizer, device, epochs=NUM_EPOCHS)
     
     # Save the trained model
-    torch.save(model.state_dict(), 'model_weights.pth')
-    print("\nModel saved to 'model_weights.pth'")
+    torch.save(model.state_dict(), f'model_{MODEL_NAME}_weights.pth')
+    print(f"\nModel saved to 'model_{MODEL_NAME}_weights.pth'")
 
     # Export model to ONNX
     export_model_to_onnx(model, "model_gtsr.onnx")

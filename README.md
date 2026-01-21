@@ -2,12 +2,26 @@
 
 A complete machine learning project for classifying traffic signs using PyTorch, with a FastAPI backend and Streamlit frontend.
 
+## Motivation and Long‑Term Vision
+
+This traffic sign classification project was chosen as a part of a larger personal pet project focused on intelligent road scene understanding. The current goal is to build a solid, production‑ready classifier for individual traffic sign images using the GTSRB dataset, exposed via an API and a simple web interface.
+​
+As a next step, the plan is to extend this work from pure classification to full traffic sign detection on arbitrary images. Instead of assuming a single centered sign, the future pipeline should detect and localize all traffic signs present in an input image using bounding boxes or other annotation formats.
+​
+After achieving robust image‑level detection, the longer‑term objective is to apply the same ideas to video streams. The aim is to process video files frame by frame, perform traffic sign detection over time, and experiment with tracking and temporal consistency of the detected signs.
+
 ## Dataset
 
 The project uses the GTSRB (German Traffic Sign Recognition Benchmark) dataset from HuggingFace:
 - Dataset: `tanganke/gtsrb`
 - Classes: 43 different traffic sign classes
 - Image size: Original images are ~32x32 pixels, resized to 224x224 for training
+
+## Model choice
+
+During experimentation, all supported architectures (ResNet18/34/50, MobileNetV3-Large, and EfficientNet-B0) showed very similar classification quality on the GTSRB dataset, with only minor differences in final accuracy. Because of this, the final model was selected primarily based on efficiency and deployment constraints rather than raw accuracy.
+​
+Among the evaluated architectures, `EfficientNet-B0` turned out to be the lightest model in terms of parameter count and model size, while still preserving competitive accuracy. Therefore, `EfficientNet-B0` was chosen as the default backbone for this project to simplify deployment, reduce resource usage, and make future extensions to detection and video processing more practical.
 
 ## Project Structure
 
@@ -93,14 +107,34 @@ Train a model on the GTSRB dataset. The script will automatically:
 - Save the best PyTorch checkpoint
 - Export the model to ONNX format
 
+Training  EfficientNet (by default)
 ```bash
 uv run python train.py
 ```
-
 ![01_script_train.png](images/01_script_train.png)
 
+Training MobileNetV3
+```bash
+uv run python train.py mobilenet_v3_large
+```
+
+Training ResNet18 
+```bash
+uv run python train.py resnet18
+```
+
+Training ResNet34
+```bash
+uv run python train.py resnet34
+```
+
+Training ResNet50
+```bash
+uv run python train.py resnet50
+```
+
 After training, you should see:
-- `model_weights.pth` - PyTorch checkpoint
+- `model_{MODEL_NAME}_weights.pth` - PyTorch checkpoint
 - `model_gtsr.onnx` - ONNX model for inference
 
 ### Step 2: Start Backend and Frontend Services
