@@ -6,8 +6,10 @@ A complete machine learning project for classifying traffic signs using PyTorch,
 
 This traffic sign classification project was chosen as a part of a larger personal pet project focused on intelligent road scene understanding. The current goal is to build a solid, production‑ready classifier for individual traffic sign images using the GTSRB dataset, exposed via an API and a simple web interface.
 ​
+
 As a next step, the plan is to extend this work from pure classification to full traffic sign detection on arbitrary images. Instead of assuming a single centered sign, the future pipeline should detect and localize all traffic signs present in an input image using bounding boxes or other annotation formats.
 ​
+
 After achieving robust image‑level detection, the longer‑term objective is to apply the same ideas to video streams. The aim is to process video files frame by frame, perform traffic sign detection over time, and experiment with tracking and temporal consistency of the detected signs.
 
 ## Dataset
@@ -20,6 +22,7 @@ The project uses the GTSRB (German Traffic Sign Recognition Benchmark) dataset f
 ### Model choice
 
 During experimentation, all supported architectures (ResNet18/34/50, MobileNetV3-Small/Large, and EfficientNet-B0) showed very similar classification quality on the GTSRB dataset, with only minor differences in final accuracy. Because of this, the final model was selected primarily based on efficiency and deployment constraints rather than raw accuracy.
+
 
 For real‑time traffic sign classification on mobile or low‑power devices, MobileNetV3 (Small or Large, depending on your accuracy needs) is generally the best balance of “light + fast + accurate”, with EfficientNet‑B0 as a good alternative if you can afford slightly more compute.
 
@@ -188,9 +191,9 @@ The frontend will open in your browser at `http://localhost:8501`
 2. Upload a traffic sign image (JPG, JPEG, or PNG)
 3. Click "Classify Traffic Sign"
 
-![02_streamlit_select_file.png](images/02_streamlit_select_file.png)
+![03_streamlit_select_file.png](images/03_streamlit_select_file.png)
 
 4. View the top-3 predictions with probabilities displayed as a horizontal bar chart
 
-![03_streamlit_prediction.png](images/03_streamlit_prediction.png)
+![04_streamlit_prediction.png](images/04_streamlit_prediction.png)
 
