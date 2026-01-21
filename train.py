@@ -15,7 +15,7 @@ MODEL_NAME = 'efficientnet_b0'
 if len(sys.argv) > 1:
     MODEL_NAME = str(sys.argv[1])
 
-    if MODEL_NAME not in ['resnet18', 'resnet34', 'resnet50', 'mobilenet_v3_large', 'efficientnet_b0']:
+    if MODEL_NAME not in ['resnet18', 'resnet34', 'resnet50', 'mobilenet_v3_small', 'mobilenet_v3_large', 'efficientnet_b0']:
         print(f"Unsupported model name: {MODEL_NAME}")
         sys.exit(1) 
 
@@ -133,6 +133,12 @@ def build_model(model_name: str, num_classes: int) -> nn.Module:
         weights = models.ResNet50_Weights.IMAGENET1K_V1
         model = models.resnet50(weights=weights)
         model.fc = nn.Linear(model.fc.in_features, num_classes)
+
+    elif model_name == "mobilenet_v3_small":
+        weights = models.MobileNet_V3_Small_Weights.IMAGENET1K_V1
+        model = models.mobilenet_v3_small(weights=weights)
+        in_features = model.classifier[-1].in_features
+        model.classifier[-1] = nn.Linear(in_features, num_classes)
 
     elif model_name == "mobilenet_v3_large":
         weights = models.MobileNet_V3_Large_Weights.IMAGENET1K_V1

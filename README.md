@@ -17,17 +17,19 @@ The project uses the GTSRB (German Traffic Sign Recognition Benchmark) dataset f
 - Classes: 43 different traffic sign classes
 - Image size: Original images are ~32x32 pixels, resized to 224x224 for training
 
-## Model choice
+### Model choice
 
-During experimentation, all supported architectures (ResNet18/34/50, MobileNetV3-Large, and EfficientNet-B0) showed very similar classification quality on the GTSRB dataset, with only minor differences in final accuracy. Because of this, the final model was selected primarily based on efficiency and deployment constraints rather than raw accuracy.
-​
-Among the evaluated architectures, `EfficientNet-B0` turned out to be the lightest model in terms of parameter count and model size, while still preserving competitive accuracy. Therefore, `EfficientNet-B0` was chosen as the default backbone for this project to simplify deployment, reduce resource usage, and make future extensions to detection and video processing more practical.
+During experimentation, all supported architectures (ResNet18/34/50, MobileNetV3-Small/Large, and EfficientNet-B0) showed very similar classification quality on the GTSRB dataset, with only minor differences in final accuracy. Because of this, the final model was selected primarily based on efficiency and deployment constraints rather than raw accuracy.
+
+For real‑time traffic sign classification on mobile or low‑power devices, MobileNetV3 (Small or Large, depending on your accuracy needs) is generally the best balance of “light + fast + accurate”, with EfficientNet‑B0 as a good alternative if you can afford slightly more compute.
 
 ## Project Structure
 
 ```
 german-traffic-sign-recognition/
+├── notebook.ipynb          # Jupyter notebook for experiments
 ├── train.py                # Training script with ONNX export
+├── inference.py            # Make an inference for fitted model
 ├── app.py                  # FastAPI backend service
 ├── streamlit_app.py        # Streamlit frontend application
 ├── Dockerfile.backend      # Docker configuration for backend
@@ -36,7 +38,7 @@ german-traffic-sign-recognition/
 ├── dockerhub-compose.yml   # Docker Compose configuration with ready-to-run images from Docker Hub
 ├── pyproject.toml          # Project dependencies (uv)
 ├── README.md               # This file
-├── notebook.ipynb          # Jupyter notebook for experiments
+
 ```
 
 ## Features
@@ -136,6 +138,13 @@ uv run python train.py resnet50
 After training, you should see:
 - `model_{MODEL_NAME}_weights.pth` - PyTorch checkpoint
 - `model_gtsr.onnx` - ONNX model for inference
+
+Run inference with ONNX model:
+```bash
+uv run inference.py
+```
+![02_inference.png](images/02_inference.png)
+
 
 ### Step 2: Start Backend and Frontend Services
 
