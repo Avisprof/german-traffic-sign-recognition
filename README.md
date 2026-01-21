@@ -34,7 +34,16 @@ german-traffic-sign-recognition/
 - **Docker Support**: Containerized backend and frontend services via docker-compose
 - **Modern Tooling**: Uses `uv` for fast dependency management
 
-## Using Pre-built Docker Images
+## How to reproduce this project?
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Avisprof/german-traffic-sign-recognition
+cd german-traffic-sign-recognition
+```
+
+### Using Pre-built Docker Images
 
 Instead of building images locally, you can use the ready-to-run images from Docker Hub:
 
