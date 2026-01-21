@@ -1,4 +1,4 @@
-# GTSRB Traffic Sign Classification Project
+![GTSRB Traffic Sign Classification Project](images/header.png)
 
 A complete machine learning project for classifying traffic signs using PyTorch, with a FastAPI backend and Streamlit frontend.
 
