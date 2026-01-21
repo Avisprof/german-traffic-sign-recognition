@@ -180,8 +180,8 @@ if __name__ == "__main__":
     train_tds = split['train'].with_transform(make_transform_fn(train_transform))
     test_tds = split['test'].with_transform(make_transform_fn(test_transform))
 
-    train_loader = DataLoader(train_tds, batch_size=64, shuffle=True, num_workers=4)
-    test_loader = DataLoader(test_tds, batch_size=64, shuffle=False, num_workers=4)
+    train_loader = DataLoader(train_tds, batch_size=64, shuffle=True, num_workers=1)
+    test_loader = DataLoader(test_tds, batch_size=64, shuffle=False, num_workers=1)
     
     model = build_model('resnet18', num_classes).to(device)
 

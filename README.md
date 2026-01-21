@@ -19,6 +19,7 @@ german-traffic-sign-recognition/
 ├── Dockerfile.backend      # Docker configuration for backend
 ├── Dockerfile.frontend     # Docker configuration for frontend
 ├── docker-compose.yml      # Docker Compose configuration for both services
+├── dockerhub-compose.yml   # Docker Compose configuration with ready-to-run images from Docker Hub
 ├── pyproject.toml          # Project dependencies (uv)
 ├── README.md               # This file
 ├── notebook.ipynb          # Jupyter notebook for experiments
@@ -33,7 +34,28 @@ german-traffic-sign-recognition/
 - **Docker Support**: Containerized backend and frontend services via docker-compose
 - **Modern Tooling**: Uses `uv` for fast dependency management
 
-## Installation
+## Using Pre-built Docker Images
+
+Instead of building images locally, you can use the ready-to-run images from Docker Hub:
+
+Pull the latest images:
+
+```bash
+docker compose -f dockerhub-compose.yml pull
+```
+
+Start services with Docker Compose:
+
+```bash
+docker compose -f dockerhub-compose.yml up -d
+```
+
+Access the application:
+* Backend API: `http://localhost:8080`
+* Frontend: `http://localhost:8501`
+
+
+## Installation from scratch
 
 This project uses [uv](https://github.com/astral-sh/uv) for fast Python package management.
 
@@ -46,7 +68,7 @@ pip install uv
 ### 2. Install Dependencies
 
 ```bash
-uv pip install -e .
+uv sync --all-groups
 ```
 
 This will install all dependencies from `pyproject.toml` into your current environment.
@@ -120,8 +142,3 @@ The frontend will open in your browser at `http://localhost:8501`
 
 ![03_streamlit_prediction.png](images/03_streamlit_prediction.png)
 
-### Interactive API Docs
-
-Once the backend is running, visit:
-- Swagger UI: `http://localhost:8080/docs`
-- ReDoc: `http://localhost:8080/redoc`
