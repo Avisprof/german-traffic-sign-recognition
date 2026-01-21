@@ -114,33 +114,33 @@ Train a model on the GTSRB dataset. The script will automatically:
 - Save the best PyTorch checkpoint
 - Export the model to ONNX format
 
-* Training `MobileNetV3_Small` (by default)
+Training `MobileNetV3_Small` (by default)
 ```bash
 uv run python train.py
 ```
 ![01_script_train.png](images/01_script_train.png)
 
-* Training `MobileNetV3_Large`
+Training `MobileNetV3_Large`
 ```bash
 uv run python train.py mobilenet_v3_large
 ```
 
-* Training `EfficientNet`
+Training `EfficientNet`
 ```bash
 uv run python train.py efficientnet_b0
 ```
 
-* Training `ResNet18`
+Training `ResNet18`
 ```bash
 uv run python train.py resnet18
 ```
 
-* Training `ResNet34`
+Training `ResNet34`
 ```bash
 uv run python train.py resnet34
 ```
 
-* Training `ResNet50`
+Training `ResNet50`
 ```bash
 uv run python train.py resnet50
 ```
