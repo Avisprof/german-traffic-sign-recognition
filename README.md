@@ -204,3 +204,12 @@ The frontend will open in your browser at `http://localhost:8501`
 
 ![04_streamlit_prediction.png](images/04_streamlit_prediction.png)
 
+### Live Demo
+
+The service has been successfully deployed to a cloud environment and is publicly accessible for testing. 
+
+
+You can experience the live application and interact with the classifying traffic signs by visiting the following URL: http://79.137.198.248:8501
+
+
+This hosted instance allows you to test the model's functionality without any local setup.
